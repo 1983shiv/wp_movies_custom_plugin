@@ -162,24 +162,17 @@ class Movies {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_movies_menu' );
+		
 
 		/**************************
 		 * CREATE CUSTOM POST TYPES
 		 *
-         * The problem with the initial activation code is that when the activation hook runs, it's after the init hook has run,
-         * so hooking into init from the activation hook won't do anything.
-         * You don't need to register the CPT within the activation function unless you need rewrite rules to be added
-         * via flush_rewrite_rules() on activation. In that case, you'll want to register the CPT normally, via the
-         * loader on the init hook, and also re-register it within the activation function and
-         * call flush_rewrite_rules() to add the CPT rewrite rules.
-         *
-         * 
-		 *
+         
 		 * @ custom_post_types.php
          */
 		$plugin_post_types = new Movies_Custom_Post_Type();
         $this->loader->add_action( 'init', $plugin_post_types, 'register_custom_post_type', 999 );
+		$this->loader->add_action( 'admin_menu', $plugin_post_types, 'add_movies_menu' );
 		$this->loader->add_action( 'init', $plugin_post_types, 'register_rest_routes', 998 );
 		$this->loader->add_action( 'init', $plugin_post_types, 'add_example_movies', 997 );
 		// END CREATE CUSTOM POST TYPES

@@ -15,6 +15,7 @@ class Movies_Custom_Post_Type {
     
     public function __construct() {
         add_action( 'init', array( $this, 'register_custom_post_type' ) );
+        add_action( 'admin_menu', array( $this, 'add_movies_menu' ) );
         add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
         register_activation_hook( __FILE__, array( $this, 'add_example_movies' ) );
     }
@@ -72,6 +73,20 @@ class Movies_Custom_Post_Type {
                 return current_user_can( 'edit_posts' );
             }
         ));
+
+        // register_rest_route( 'herothemes/v1', '/movies', array(
+        //     'methods'  => 'GET',
+        //     'callback' => array( $this, 'get_movies' )
+        // ));
+
+        // register_rest_route( 'herothemes/v1', '/movies/(?P<id>\d+)', array(
+        //     'methods'  => 'GET',
+        //     'callback' => array( $this, 'get_movie' )
+        // ));
+    }
+
+    public function add_movies_menu() {
+        add_menu_page( __( 'Movies', 'textdomain' ), __( 'Movies', 'textdomain' ), 'manage_options', 'edit.php?post_type=movie', '', 'dashicons-video-alt3', 20 );
     }
 
     public function get_movies() {
