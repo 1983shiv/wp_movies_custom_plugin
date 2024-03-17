@@ -100,4 +100,8 @@ class Movies_Admin {
 
 	}
 
+	public function add_movies_menu() {
+        add_menu_page( __( 'Movies', 'textdomain' ), __( 'Movies', 'textdomain' ), 'manage_options', 'edit.php?post_type=movie', '', 'dashicons-video-alt3', 20 );
+    }
+
 }
