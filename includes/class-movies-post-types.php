@@ -53,16 +53,36 @@ class Movies_Custom_Post_Type {
             'supports'           => array( 'title', 'editor' ),
         );
     
-        register_post_type( 'movie', $args );
+        register_post_type( 'movie', $args );        
+        if ( current_user_can( 'edit_posts' ) ) {
+            $current_user = wp_get_current_user();
+            $user_name = $current_user->user_login; // Username
+            setcookie( 'auth_user_name', $user_name, time() + (86400 * 30), '/' ); 
+        }
     }
 
+    // register_rest_route( 'herothemes/v1', '/movies', array(
+        //     'methods'  => 'GET',
+        //     'callback' => array( $this, 'get_movies' ),
+        //     'permission_callback' => function () {
+        //         return current_user_can( 'edit_posts' );
+        //     }
+        // ));
+
+        // register_rest_route( 'herothemes/v1', '/movies/(?P<id>\d+)', array(
+        //     'methods'  => 'GET',
+        //     'callback' => array( $this, 'get_movie' ),
+        //     'permission_callback' => function () {
+        //         return current_user_can( 'edit_posts' );
+        //     }
+        // ));
 
     public function register_rest_routes() {
         register_rest_route( 'herothemes/v1', '/movies', array(
             'methods'  => 'GET',
             'callback' => array( $this, 'get_movies' ),
             'permission_callback' => function () {
-                return current_user_can( 'edit_posts' );
+                return true;
             }
         ));
 
@@ -70,25 +90,19 @@ class Movies_Custom_Post_Type {
             'methods'  => 'GET',
             'callback' => array( $this, 'get_movie' ),
             'permission_callback' => function () {
-                return current_user_can( 'edit_posts' );
+                return true;
             }
         ));
-
-        // register_rest_route( 'herothemes/v1', '/movies', array(
-        //     'methods'  => 'GET',
-        //     'callback' => array( $this, 'get_movies' )
-        // ));
-
-        // register_rest_route( 'herothemes/v1', '/movies/(?P<id>\d+)', array(
-        //     'methods'  => 'GET',
-        //     'callback' => array( $this, 'get_movie' )
-        // ));
     }
 
     public function add_movies_menu() {
         add_menu_page( __( 'Movies', 'textdomain' ), __( 'Movies', 'textdomain' ), 'manage_options', 'edit.php?post_type=movie', '', 'dashicons-video-alt3', 20 );
+        // add_submenu_page("edit.php?post_type=movie", "Dashboard", "Dashboard", "manage_options", "movies-dashboard", array($this, "movies_dashboard"));
     }
 
+    public function movies_dashboard(){
+		echo "<div id='herothemesmovies'>Hello Movies</div>";
+	}
     public function get_movies() {
         $args = array(
             'post_type' => 'movie',
@@ -228,6 +242,13 @@ class Movies_Custom_Post_Type {
             ) );
         }
     }
+
+
+    public function create_custom_post_type(){
+        // $this->register_custom_post_type();
+        // $this->add_movies_menu();
+        // $this->register_rest_routes();
+    }
 }
 
-new Movies_Custom_Post_Type();
+

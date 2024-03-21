@@ -29,7 +29,22 @@ class Movies_Activator {
 	 *
 	 * @since    1.0.0
 	 */
+
+
+	
 	public static function activate() {
+
+		global $wpdb;
+
+		/**************************
+		 * CREATE CUSTOM POST TYPES
+		 *
+         
+		 * @ custom_post_types.php
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-movies-post-types.php';
+		$plugin_post_types = new Movies_Custom_Post_Type();
+		$plugin_post_types->add_example_movies();
 
 	}
 

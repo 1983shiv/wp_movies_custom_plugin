@@ -73,7 +73,8 @@ class Movies_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/movies-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name. '-admin', plugin_dir_url( __FILE__ ) . 'css/movies-admin.css', array(), $this->version, 'all' );
+		
 
 	}
 
@@ -96,7 +97,11 @@ class Movies_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/movies-admin.js', array( 'jquery' ), $this->version, false );
+		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/movies-admin.js', array( 'jquery' ), $this->version, false );
+		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/movies.js', array(), $this->version, false );
+
+		wp_enqueue_script( $this->plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/movies-admin.js', array( 'jquery' ), $this->version, false );
+    	
 
 	}
 

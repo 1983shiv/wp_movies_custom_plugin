@@ -162,8 +162,7 @@ class Movies {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		
-
+		// $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_movies_menu' );
 		/**************************
 		 * CREATE CUSTOM POST TYPES
 		 *
@@ -171,11 +170,12 @@ class Movies {
 		 * @ custom_post_types.php
          */
 		$plugin_post_types = new Movies_Custom_Post_Type();
-        $this->loader->add_action( 'init', $plugin_post_types, 'register_custom_post_type', 999 );
-		$this->loader->add_action( 'admin_menu', $plugin_post_types, 'add_movies_menu' );
-		$this->loader->add_action( 'init', $plugin_post_types, 'register_rest_routes', 998 );
-		$this->loader->add_action( 'init', $plugin_post_types, 'add_example_movies', 997 );
+        $this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
+		// $this->loader->add_action( 'admin_menu', $plugin_post_types, 'add_movies_menu' );
+		// $this->loader->add_action( 'init', $plugin_post_types, 'register_rest_routes', 998 );
+		// $this->loader->add_action( 'init', $plugin_post_types, 'add_example_movies', 997 );
 		// END CREATE CUSTOM POST TYPES
+		
 
 	}
 

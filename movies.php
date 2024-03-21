@@ -44,6 +44,8 @@ define( 'MOVIES_VERSION', '1.0.0' );
 function activate_movies() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-movies-activator.php';
 	Movies_Activator::activate();
+
+
 }
 
 /**

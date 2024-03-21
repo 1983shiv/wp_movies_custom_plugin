@@ -30,7 +30,17 @@ class Movies_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
+		// Query to retrieve all posts of the "movie" post type
+		$movie_posts = get_posts( array(
+			'post_type'      => 'movie',
+			'posts_per_page' => -1, // Retrieve all posts
+			'fields'         => 'ids', // Only retrieve post IDs
+		) );
 
+		// Loop through each movie post and delete it
+		foreach ( $movie_posts as $movie_post_id ) {
+			wp_delete_post( $movie_post_id, true ); // Force delete to bypass trash
+		}
 	}
 
 }
